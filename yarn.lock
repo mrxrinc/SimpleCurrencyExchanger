@@ -2769,6 +2769,11 @@
   "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
   "version" "4.0.0"
 
+"escape-string-regexp@2.0.0":
+  "integrity" "sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w=="
+  "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz"
+  "version" "2.0.0"
+
 "escodegen@^2.0.0":
   "integrity" "sha512-mmHKys/C8BFUGI+MAWNcSYoORYLMdPzjrknd2Vc+bUsjN5bXcr8EhrNB+UTqfL1y3I9c4fw2ihgtMPQLBRiQxw=="
   "resolved" "https://registry.yarnpkg.com/escodegen/-/escodegen-2.0.0.tgz"
@@ -3612,7 +3617,7 @@
   "resolved" "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz"
   "version" "1.4.0"
 
-"invariant@^2.2.4":
+"invariant@^2.2.4", "invariant@2.2.4":
   "integrity" "sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA=="
   "resolved" "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz"
   "version" "2.2.4"
@@ -5808,7 +5813,15 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.57 <0.59", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.0":
+"react-native-webview@^11.4.4", "react-native-webview@>=5.2.4":
+  "integrity" "sha512-miB6ZVpIPSxFVN5DIm0O59SGhFmeimB6SASR6deIIGXMkrXoHQCrUpnZ3L6AyofK804unNgdiqkqSa1UdH1iSA=="
+  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.4.4.tgz"
+  "version" "11.4.4"
+  dependencies:
+    "escape-string-regexp" "2.0.0"
+    "invariant" "2.2.4"
+
+"react-native@*", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.57 <0.59", "react-native@>=0.60 <=0.64", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.0":
   "integrity" "sha512-8dhSHBthgGwAjU+OjqUEA49229ThPMQH7URH0u8L0xoQFCnZO2sZ9Wc6KcbxI0x9KSmjCMFFZqRe3w3QsRv64g=="
   "resolved" "https://registry.yarnpkg.com/react-native/-/react-native-0.64.0.tgz"
   "version" "0.64.0"

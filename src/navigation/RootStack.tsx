@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
 import { enableScreens } from "react-native-screens";
-import { Home } from "screens";
+import { Home, CountryDetail } from "screens";
 import { colors } from "theme";
 
 enableScreens();
@@ -18,6 +18,7 @@ const RootStack = () => {
         },
       }}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="CountryDetail" component={CountryDetail} />
     </Stack.Navigator>
   );
 };

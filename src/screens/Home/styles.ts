@@ -42,3 +42,34 @@ export const AllCountriesButton = styled.TouchableOpacity`
   margin-top: 90px;
   align-self: center;
 `;
+
+export const AllCountriesWrapper = styled.FlatList`
+  padding: 0 20px;
+`;
+
+export const CountryNameRowContainer = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 60px;
+`;
+
+export const CountryFlagWrapper = styled.View`
+  margin-right: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+`;
+
+export const FlagStyle = {
+  width: 40,
+  height: 25,
+  backgroundColor: colors.grayLighter,
+};
+
+export const ItemSeparator = styled.View`
+  width: 100%;
+  height: 1px;
+  align-self: center;
+  background-color: ${colors.grayLight};
+`;
