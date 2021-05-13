@@ -1,4 +1,5 @@
-import React, { FC, useState, useMemo, useCallback } from "react";
+import React, { FC, useState, useEffect } from "react";
+import { ListRenderItem } from "react-native";
 import { colors, Text, Icon } from "theme";
 import Image from "react-native-remote-svg";
 import Header from "components/Header";
@@ -6,7 +7,7 @@ import Modal from "components/Modal";
 import { CountryType } from "types/country";
 import Loading from "components/Loading";
 import EmptyList from "components/EmptyList";
-import { getAllCountries } from "utils/apiHelper";
+import { getAllCountries, getCountryByName } from "utils/apiHelper";
 import { HomeProps } from "navigation/RootStack";
 import {
   Container,
@@ -21,10 +22,13 @@ import {
   CountryFlagWrapper,
   FlagStyle,
   ItemSeparator,
+  SuggestionPopup,
+  SuggestionList,
+  SuggestionItem,
 } from "./styles";
 
 interface FetchCountry {
-  keyword?: string;
+  name?: string;
 }
 
 interface CountryRowProps {
@@ -38,18 +42,36 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   const [onFocus, setOnFocus] = useState<boolean>(false);
   const [showCountriesModal, setShowCountriesModal] = useState<boolean>(false);
   const [countries, setCountries] = useState<CountryType[]>([]);
+  const [suggestedCountries, setSuggestedCountries] =
+    useState<CountryType | CountryType[] | null>(null);
+  const [query, setQuery] = useState<string>("");
 
-  const fetchCountry = ({ keyword }: FetchCountry) => {
-    console.log(keyword);
+  useEffect(() => {
+    fetchCountry({ name: query });
+  }, [query]);
+
+  const fetchCountry = ({ name }: FetchCountry) => {
+    console.log("name ", name);
+    console.log("query ", query);
+    if (!!name && name.length > 3) {
+      getCountryByName({
+        setIsLoading,
+        name,
+        setSuggestedCountries,
+      });
+    } else {
+      setQuery("");
+      setSuggestedCountries([]);
+    }
   };
 
-  const renderCountryRow = ({ item }: { item: CountryRowProps }) => {
+  const renderCountryRow: ListRenderItem<CountryRowProps> = ({ item }) => {
     return (
       <CountryNameRowContainer
         onPress={() => {
           setShowCountriesModal(false);
           navigation.navigate("CountryDetail", {
-            fullName: item.name,
+            name: item.name,
           });
         }}>
         <CountryFlagWrapper>
@@ -57,6 +79,20 @@ const Home: FC<HomeProps> = ({ navigation }) => {
         </CountryFlagWrapper>
         <Text numberOfLines={1}>{item?.name}</Text>
       </CountryNameRowContainer>
+    );
+  };
+
+  const renderSuggestedItems: ListRenderItem<CountryType> = ({ item }) => {
+    return (
+      <SuggestionItem
+        onPress={() => {
+          setShowCountriesModal(false);
+          navigation.navigate("CountryDetail", {
+            name: item.name,
+          });
+        }}>
+        <Text color={colors.text}>{item.name}</Text>
+      </SuggestionItem>
     );
   };
 
@@ -72,11 +108,31 @@ const Home: FC<HomeProps> = ({ navigation }) => {
           <TextInput
             onFocus={() => setOnFocus(true)}
             onBlur={() => setOnFocus(false)}
-            onChangeText={(keyword: string) => fetchCountry({ keyword })}
+            onChangeText={(name: string) => setQuery(name)}
           />
-          <SearchButton>
-            <Icon name="search" size={22} color={colors.grayDarker} />
+          <SearchButton
+            onPress={() =>
+              setQuery(() => {
+                fetchCountry({});
+                return "";
+              })
+            }>
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <Icon name="search" size={22} color={colors.grayDarker} />
+            )}
           </SearchButton>
+          {Array.isArray(suggestedCountries) && suggestedCountries?.length > 0 && (
+            <SuggestionPopup>
+              <SuggestionList
+                data={suggestedCountries}
+                renderItem={renderSuggestedItems}
+                ItemSeparatorComponent={() => <ItemSeparator />}
+                keyExtractor={item => item.alpha3Code}
+              />
+            </SuggestionPopup>
+          )}
         </SearchInputWrapper>
 
         <AllCountriesButton onPress={() => setShowCountriesModal(true)}>

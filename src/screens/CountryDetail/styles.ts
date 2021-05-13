@@ -98,3 +98,9 @@ export const ModalButtonWrapper = styled.View`
   position: absolute;
   bottom: 0;
 `;
+
+export const RateWrapper = styled.View`
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+`;

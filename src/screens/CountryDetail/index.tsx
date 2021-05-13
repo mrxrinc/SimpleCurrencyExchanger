@@ -5,7 +5,7 @@ import Image from "react-native-remote-svg";
 import Modal from "components/Modal";
 import FullWidthButton from "components/FullWidthButton";
 import CurrencyInput from "components/CurrencyInput";
-import { getCountryByName } from "utils/apiHelper";
+import { getCountryByName, getExchangeResult } from "utils/apiHelper";
 import { CountryDetailProps } from "navigation/RootStack";
 import { CountryType } from "types/country";
 import {
@@ -24,32 +24,35 @@ import {
   ModalResultWrapper,
   ModalCurrencyWrapper,
   ModalButtonWrapper,
+  RateWrapper,
 } from "./styles";
 
-interface FetchCountry {
-  keyword?: string;
-}
-
 const CountryDetail: FC<CountryDetailProps> = ({ route }) => {
-  const { fullName } = route.params;
+  const { name } = route.params;
   const [showExchangeModal, setShowExchangeModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [country, setCountry] = useState<CountryType | null>(null);
   const [amount, setAmount] = useState<string>("");
-  const currencyCode = country?.currencies
+  const [result, setResult] = useState<number>(0);
+  const [rate, setRate] = useState<number>(0);
+  const currencyCode: string = country?.currencies
     ? country.currencies[0]["code"]
     : "--";
 
   useEffect(() => {
-    getCountryByName({ fullName, setIsLoading, setCountry });
+    getCountryByName({ name, setIsLoading, setCountry, fullName: true });
   }, []);
 
   const handleExchange = () => {
-    console.log(amount);
+    getExchangeResult({
+      from: "SEK",
+      to: currencyCode,
+      amount: parseInt(amount),
+      setIsLoading,
+      setResult,
+      setRate,
+    });
   };
-
-  console.log({ fullName });
-  console.log(country);
 
   return (
     <Container>
@@ -122,20 +125,25 @@ const CountryDetail: FC<CountryDetailProps> = ({ route }) => {
         <ModalContentWrapper>
           <ModalTitle>
             <Text size={22} color={colors.text} bold>
-              Convert SEK to USD
+              {`Convert SEK to ${currencyCode}`}
             </Text>
           </ModalTitle>
           <ModalResultWrapper>
             <Text size={40} color={colors.secondary} bold>
-              2,450.87
+              {`${result ? result.toLocaleString() : 0}`}
             </Text>
             <ModalCurrencyWrapper>
               <Text size={16} color={colors.secondary} bold>
-                USD
+                {currencyCode}
               </Text>
             </ModalCurrencyWrapper>
           </ModalResultWrapper>
           <CurrencyInput handleAmount={(value: string) => setAmount(value)} />
+          <RateWrapper>
+            <Text color={colors.grayDarker}>{`rate: ${
+              rate ? rate.toFixed(4) : 0
+            }`}</Text>
+          </RateWrapper>
         </ModalContentWrapper>
         <ModalButtonWrapper>
           <FullWidthButton

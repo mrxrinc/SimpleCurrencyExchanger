@@ -5,8 +5,7 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const Content = styled.ScrollView`
-  padding: 0px 20px;
+export const Content = styled.View`
   flex: 1;
 `;
 
@@ -16,13 +15,14 @@ export const SearchLabel = styled.View`
 `;
 
 export const SearchInputWrapper = styled.View<{ focused: boolean }>`
-  flex: 1;
   height: 40px;
   border-radius: 7px;
   border: 1px solid
     ${props => (props.focused ? colors.grayDark : colors.grayLight)};
   flex-direction: row;
+  margin: 0px 20px;
   margin-top: 20px;
+  z-index: 1;
 `;
 
 export const TextInput = styled.TextInput`
@@ -36,6 +36,33 @@ export const SearchButton = styled.TouchableOpacity`
   flex: 1;
   justify-content: center;
   align-items: center;
+`;
+
+export const SuggestionPopup = styled.View`
+  width: 98%;
+  min-height: 40px;
+  max-height: 250px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  position: absolute;
+  top: 39px;
+  left: 1%;
+  border: 1px ${colors.grayLight};
+  background-color: ${colors.grayLighter};
+  justify-content: center;
+  elevation: 15;
+`;
+
+export const SuggestionList = styled.FlatList`
+  padding: 0 20px;
+`;
+
+export const SuggestionItem = styled.TouchableOpacity`
+  width: 100%;
+  height: 50px;
+  justify-content: center;
 `;
 
 export const AllCountriesButton = styled.TouchableOpacity`

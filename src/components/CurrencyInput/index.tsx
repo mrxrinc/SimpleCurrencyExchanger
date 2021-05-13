@@ -23,6 +23,7 @@ const CurrencyInput: FC<CurrencyInputProps> = ({ handleAmount }) => {
         keyboardType="number-pad"
         returnKeyType="done"
         spellCheck={false}
+        maxLength={8}
         onChangeText={(value: string) => setAmount(value.replace(/[^\d]/g, ""))}
         value={amount}
       />

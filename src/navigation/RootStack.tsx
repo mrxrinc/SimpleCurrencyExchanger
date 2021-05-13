@@ -7,7 +7,7 @@ import { colors } from "theme";
 
 export type RootStackParamList = {
   Home: undefined;
-  CountryDetail: { fullName: string };
+  CountryDetail: { name: string };
 };
 
 export type HomeProps = StackScreenProps<RootStackParamList, "Home">;
