@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from "react";
 import Image from "react-native-remote-svg";
 import { Text } from "theme";
+import { formatNumber } from "utils/common";
 import { Container, CurrencyWrapper, TextInput, FlagStyle } from "./style";
 
 interface CurrencyInputProps {

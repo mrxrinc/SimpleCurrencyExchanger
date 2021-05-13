@@ -7,6 +7,7 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   flex: 1;
+  padding: 0px 20px;
 `;
 
 export const SearchLabel = styled.View`
@@ -20,7 +21,7 @@ export const SearchInputWrapper = styled.View<{ focused: boolean }>`
   border: 1px solid
     ${props => (props.focused ? colors.grayDark : colors.grayLight)};
   flex-direction: row;
-  margin: 0px 20px;
+
   margin-top: 20px;
   z-index: 1;
 `;
@@ -47,8 +48,9 @@ export const SuggestionPopup = styled.View`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   position: absolute;
-  top: 39px;
+  top: 160px;
   left: 1%;
+  margin: 0 20px;
   border: 1px ${colors.grayLight};
   background-color: ${colors.grayLighter};
   justify-content: center;

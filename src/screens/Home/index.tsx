@@ -9,6 +9,7 @@ import Loading from "components/Loading";
 import EmptyList from "components/EmptyList";
 import { getAllCountries, getCountryByName } from "utils/apiHelper";
 import { HomeProps } from "navigation/RootStack";
+import CountriesListSkeleton from "components/Skeleton/CountriesList";
 import {
   Container,
   Content,
@@ -40,7 +41,7 @@ interface CountryRowProps {
 const Home: FC<HomeProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [onFocus, setOnFocus] = useState<boolean>(false);
-  const [showCountriesModal, setShowCountriesModal] = useState<boolean>(false);
+  const [showCountriesModal, setShowCountriesModal] = useState<boolean>(true);
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [suggestedCountries, setSuggestedCountries] =
     useState<CountryType | CountryType[] | null>(null);
@@ -51,8 +52,6 @@ const Home: FC<HomeProps> = ({ navigation }) => {
   }, [query]);
 
   const fetchCountry = ({ name }: FetchCountry) => {
-    console.log("name ", name);
-    console.log("query ", query);
     if (!!name && name.length > 3) {
       getCountryByName({
         setIsLoading,
@@ -123,17 +122,18 @@ const Home: FC<HomeProps> = ({ navigation }) => {
               <Icon name="search" size={22} color={colors.grayDarker} />
             )}
           </SearchButton>
-          {Array.isArray(suggestedCountries) && suggestedCountries?.length > 0 && (
-            <SuggestionPopup>
-              <SuggestionList
-                data={suggestedCountries}
-                renderItem={renderSuggestedItems}
-                ItemSeparatorComponent={() => <ItemSeparator />}
-                keyExtractor={item => item.alpha3Code}
-              />
-            </SuggestionPopup>
-          )}
         </SearchInputWrapper>
+
+        {Array.isArray(suggestedCountries) && suggestedCountries?.length > 0 && (
+          <SuggestionPopup>
+            <SuggestionList
+              data={suggestedCountries}
+              renderItem={renderSuggestedItems}
+              ItemSeparatorComponent={() => <ItemSeparator />}
+              keyExtractor={item => item.alpha3Code}
+            />
+          </SuggestionPopup>
+        )}
 
         <AllCountriesButton onPress={() => setShowCountriesModal(true)}>
           <Text size={16} color={colors.grayDark}>
@@ -148,7 +148,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
         onOpen={() => getAllCountries({ setIsLoading, setCountries })}
         title="All Countries">
         {isLoading ? (
-          <Loading />
+          <CountriesListSkeleton />
         ) : countries.length === 0 ? (
           <EmptyList />
         ) : (

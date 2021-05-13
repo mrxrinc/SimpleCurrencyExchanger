@@ -6,8 +6,10 @@ import Modal from "components/Modal";
 import FullWidthButton from "components/FullWidthButton";
 import CurrencyInput from "components/CurrencyInput";
 import { getCountryByName, getExchangeResult } from "utils/apiHelper";
+import { formatNumber } from "utils/common";
 import { CountryDetailProps } from "navigation/RootStack";
 import { CountryType } from "types/country";
+import SkeletonLoader from "components/Skeleton/CountryDetail";
 import {
   Container,
   Content,
@@ -57,69 +59,73 @@ const CountryDetail: FC<CountryDetailProps> = ({ route }) => {
   return (
     <Container>
       <Header hasBackButton />
-      <Content>
-        <TopSection>
-          <FlagWrapper>
-            <Image
-              source={{ uri: country?.flag }}
-              style={{ width: 150, height: 95 }}
-            />
-          </FlagWrapper>
-          <TitleWrapper>
-            <Text size={22}>{country?.name || "--"}</Text>
-            <Text
-              size={14}
-              color={colors.grayDark}
-              customStyle={"marginTop: 4px"}>
-              {country?.nativeName}
-            </Text>
-          </TitleWrapper>
-
-          <DetailWrapper>
-            <DetailItem>
-              <IconWrapper bottomSpace={7}>
-                <Icon name="capital" size={25} color={colors.grayDarker} />
-              </IconWrapper>
-              <Text>{country?.capital || "--"}</Text>
-            </DetailItem>
-            <DetailItem>
-              <IconWrapper bottomSpace={-4}>
-                <Icon name="population" size={25} color={colors.grayDarker} />
-              </IconWrapper>
-              <Text>
-                {country?.population
-                  ? country?.population.toLocaleString() + "  "
-                  : "--  "}
-                <Text size={12} color={colors.grayDarker}>
-                  people
-                </Text>
+      {isLoading ? (
+        <SkeletonLoader />
+      ) : (
+        <Content>
+          <TopSection>
+            <FlagWrapper>
+              <Image
+                source={{ uri: country?.flag }}
+                style={{ width: 150, height: 95 }}
+              />
+            </FlagWrapper>
+            <TitleWrapper>
+              <Text size={22}>{country?.name || "--"}</Text>
+              <Text
+                size={14}
+                color={colors.grayDark}
+                customStyle={"marginTop: 4px"}>
+                {country?.nativeName}
               </Text>
-            </DetailItem>
-            <DetailItem>
-              <IconWrapper bottomSpace={5}>
-                <Icon name="currency" size={25} color={colors.grayDarker} />
+            </TitleWrapper>
+
+            <DetailWrapper>
+              <DetailItem>
+                <IconWrapper bottomSpace={7}>
+                  <Icon name="capital" size={25} color={colors.grayDarker} />
+                </IconWrapper>
+                <Text>{country?.capital || "--"}</Text>
+              </DetailItem>
+              <DetailItem>
+                <IconWrapper bottomSpace={-4}>
+                  <Icon name="population" size={25} color={colors.grayDarker} />
+                </IconWrapper>
+                <Text>
+                  {country?.population
+                    ? formatNumber(country.population) + "  "
+                    : "--  "}
+                  <Text size={12} color={colors.grayDarker}>
+                    people
+                  </Text>
+                </Text>
+              </DetailItem>
+              <DetailItem>
+                <IconWrapper bottomSpace={5}>
+                  <Icon name="currency" size={25} color={colors.grayDarker} />
+                </IconWrapper>
+                <Text>{currencyCode}</Text>
+              </DetailItem>
+            </DetailWrapper>
+          </TopSection>
+          <ButtonWrapper>
+            <ExchangeButton
+              onPress={() => setShowExchangeModal(true)}
+              activeOpacity={0.6}
+              disabled={!currencyCode}>
+              <Text size={18} color={colors.white} bold>
+                SEK
+              </Text>
+              <IconWrapper bottomSpace={3}>
+                <Icon name="arrow" size={20} color={colors.white} />
               </IconWrapper>
-              <Text>{currencyCode}</Text>
-            </DetailItem>
-          </DetailWrapper>
-        </TopSection>
-        <ButtonWrapper>
-          <ExchangeButton
-            onPress={() => setShowExchangeModal(true)}
-            activeOpacity={0.6}
-            disabled={!currencyCode}>
-            <Text size={18} color={colors.white} bold>
-              SEK
-            </Text>
-            <IconWrapper bottomSpace={3}>
-              <Icon name="arrow" size={20} color={colors.white} />
-            </IconWrapper>
-            <Text size={18} color={colors.white} bold>
-              {currencyCode}
-            </Text>
-          </ExchangeButton>
-        </ButtonWrapper>
-      </Content>
+              <Text size={18} color={colors.white} bold>
+                {currencyCode}
+              </Text>
+            </ExchangeButton>
+          </ButtonWrapper>
+        </Content>
+      )}
 
       <Modal showModal={showExchangeModal} setShowModal={setShowExchangeModal}>
         <ModalContentWrapper>
@@ -130,7 +136,7 @@ const CountryDetail: FC<CountryDetailProps> = ({ route }) => {
           </ModalTitle>
           <ModalResultWrapper>
             <Text size={40} color={colors.secondary} bold>
-              {`${result ? result.toLocaleString() : 0}`}
+              {`${result ? formatNumber(result.toFixed(2)) : 0}`}
             </Text>
             <ModalCurrencyWrapper>
               <Text size={16} color={colors.secondary} bold>
