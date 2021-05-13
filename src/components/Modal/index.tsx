@@ -8,7 +8,8 @@ interface ModalProps {
   showModal: boolean;
   setShowModal: (T: boolean) => void;
   title?: string;
-  children?: React.ReactNode[];
+  children?: React.ReactNode[] | Element;
+  onOpen?: () => Promise<void>;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -16,6 +17,8 @@ const Modal: FC<ModalProps> = ({
   setShowModal,
   title,
   children,
+  onOpen,
+  ...rest
 }) => {
   const refRBSheet = useRef(null);
   useEffect(() => {
@@ -31,9 +34,11 @@ const Modal: FC<ModalProps> = ({
       ref={refRBSheet}
       height={height * 0.85}
       openDuration={250}
+      onOpen={onOpen}
       onClose={() => setShowModal(false)}
       animationType="fade"
-      customStyles={ModalStyles}>
+      customStyles={ModalStyles}
+      {...rest}>
       <Header>
         <IconWrapper onPress={() => setShowModal(false)}>
           <Icon name="close" size={18} color={colors.text} />

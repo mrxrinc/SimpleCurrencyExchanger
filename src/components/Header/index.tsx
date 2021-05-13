@@ -15,7 +15,7 @@ interface Props {
   children?: ReactNode;
 }
 
-const Header: FC = ({ children, title, hasBackButton }: Props) => {
+const Header: FC<Props> = ({ children, title, hasBackButton }) => {
   const navigation = useNavigation();
 
   return (

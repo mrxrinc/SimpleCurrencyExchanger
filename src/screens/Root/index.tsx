@@ -1,5 +1,6 @@
 import React from "react";
 import { StatusBar } from "react-native";
+import Toast from "react-native-toast-message";
 import AppContainer from "navigation";
 import { RootContainer } from "./style";
 
@@ -13,6 +14,7 @@ const Root = () => {
           barStyle="dark-content"
         />
         <AppContainer />
+        <Toast ref={ref => Toast.setRef(ref)} />
       </>
     </RootContainer>
   );

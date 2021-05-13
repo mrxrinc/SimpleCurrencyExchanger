@@ -1,8 +1,20 @@
 import React from "react";
 import { createNativeStackNavigator } from "react-native-screens/native-stack";
+import { StackScreenProps } from "@react-navigation/stack";
 import { enableScreens } from "react-native-screens";
 import { Home, CountryDetail } from "screens";
 import { colors } from "theme";
+
+export type RootStackParamList = {
+  Home: undefined;
+  CountryDetail: { fullName: string };
+};
+
+export type HomeProps = StackScreenProps<RootStackParamList, "Home">;
+export type CountryDetailProps = StackScreenProps<
+  RootStackParamList,
+  "CountryDetail"
+>;
 
 enableScreens();
 const Stack = createNativeStackNavigator();

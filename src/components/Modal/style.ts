@@ -5,6 +5,7 @@ export const ModalStyles = {
   container: {
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
+    overflow: "hidden",
   },
   wrapper: {
     backgroundColor: `${colors.primaryDeepDark}44`,
@@ -12,10 +13,10 @@ export const ModalStyles = {
 };
 
 export const Header = styled.View`
-  flex: 1;
-  max-height: 50px;
+  height: 50px;
   justify-content: center;
   align-items: center;
+  background-color: ${colors.white};
 `;
 
 export const IconWrapper = styled.TouchableOpacity`

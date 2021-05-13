@@ -2,7 +2,7 @@ import React from "react";
 import { StyledText, StyledTextProps } from "./style";
 
 interface Props extends StyledTextProps {
-  children: string | [string, JSX.Element];
+  children?: string | [string, JSX.Element];
   numberOfLines?: number;
 }
 

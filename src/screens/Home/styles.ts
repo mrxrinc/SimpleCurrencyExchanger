@@ -48,7 +48,6 @@ export const AllCountriesWrapper = styled.FlatList`
 `;
 
 export const CountryNameRowContainer = styled.TouchableOpacity`
-  flex: 1;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
