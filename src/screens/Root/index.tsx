@@ -1,8 +1,12 @@
 import React from "react";
 import { StatusBar } from "react-native";
 import Toast from "react-native-toast-message";
+import styled from "styled-components/native";
 import AppContainer from "navigation";
-import { RootContainer } from "./style";
+
+export const RootContainer = styled.View`
+  flex: 1;
+`;
 
 const Root = () => {
   return (

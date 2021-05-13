@@ -41,7 +41,7 @@ interface CountryRowProps {
 const Home: FC<HomeProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [onFocus, setOnFocus] = useState<boolean>(false);
-  const [showCountriesModal, setShowCountriesModal] = useState<boolean>(true);
+  const [showCountriesModal, setShowCountriesModal] = useState<boolean>(false);
   const [countries, setCountries] = useState<CountryType[]>([]);
   const [suggestedCountries, setSuggestedCountries] =
     useState<CountryType | CountryType[] | null>(null);
@@ -129,6 +129,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
             <SuggestionList
               data={suggestedCountries}
               renderItem={renderSuggestedItems}
+              ListEmptyComponent={() => <EmptyList />}
               ItemSeparatorComponent={() => <ItemSeparator />}
               keyExtractor={item => item.alpha3Code}
             />
@@ -155,6 +156,7 @@ const Home: FC<HomeProps> = ({ navigation }) => {
           <AllCountriesWrapper
             data={countries}
             renderItem={renderCountryRow}
+            ListEmptyComponent={() => <EmptyList />}
             ItemSeparatorComponent={() => <ItemSeparator />}
             keyExtractor={item => item.alpha3Code}
           />

@@ -17,6 +17,7 @@ export type CountryDetailProps = StackScreenProps<
 >;
 
 enableScreens();
+
 const Stack = createNativeStackNavigator();
 
 const RootStack = () => {

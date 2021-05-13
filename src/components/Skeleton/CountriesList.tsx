@@ -1,6 +1,5 @@
 import React from "react";
 import ContentLoader, { Rect } from "react-content-loader/native";
-import { width } from "utils/common";
 
 const CountriesListSkeleton = () => (
   <ContentLoader

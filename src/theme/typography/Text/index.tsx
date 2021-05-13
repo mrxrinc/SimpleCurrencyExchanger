@@ -13,6 +13,7 @@ const Text = ({
   color,
   customStyle,
   numberOfLines,
+  ...rest
 }: Props) => {
   return (
     <StyledText
@@ -20,7 +21,8 @@ const Text = ({
       color={color}
       bold={bold}
       customStyle={customStyle}
-      numberOfLines={numberOfLines}>
+      numberOfLines={numberOfLines}
+      {...rest}>
       {children}
     </StyledText>
   );

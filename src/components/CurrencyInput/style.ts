@@ -1,11 +1,11 @@
-import styled, { css } from "styled-components/native";
+import styled from "styled-components/native";
 import { colors, appFontFamilyBold } from "theme";
 
 interface ContainerProps {
-  focused?: boolean;
+  focused: boolean;
 }
 
-export const Container = styled.View<{ focused: boolean }>`
+export const Container = styled.View<ContainerProps>`
   flex: 1;
   height: 55px;
   border-radius: 5px;

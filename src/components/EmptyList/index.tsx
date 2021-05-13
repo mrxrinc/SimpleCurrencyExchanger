@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components/native";
-import { Text } from "theme";
+import { colors, Text } from "theme";
 
 const Container = styled.View`
   flex: 1;
+  min-height: 200px;
   justify-content: center;
   align-items: center;
 `;
@@ -11,7 +12,7 @@ const Container = styled.View`
 const EmptyList = () => {
   return (
     <Container>
-      <Text>The List is Empty!</Text>
+      <Text color={colors.grayDark}>The List is Empty!</Text>
     </Container>
   );
 };
