@@ -1,5 +1,5 @@
-# Anyfin
-**Anyfin Interview test** 
+# Exchanger
+**Mohamamd Mirzaei Interview test** 
 
 Fully working on Android, not enough time to refine for ios.
 
